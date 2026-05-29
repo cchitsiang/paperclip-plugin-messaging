@@ -52,7 +52,7 @@ import { shouldNotifyApproval } from "./approval-routing.js";
 import { buildPaperclipAuthHeaders, fetchPaperclipApi } from "./paperclip-api.js";
 
 type TelegramConfig = {
-  telegramBotTokenRef: string;
+  telegramBotTokenRef?: string;
   defaultChatId: string;
   approvalsChatId: string;
   approvalsTopicId: string;
@@ -356,12 +356,16 @@ const plugin = definePlugin({
       });
     });
 
-    if (!config.telegramBotTokenRef) {
-      ctx.logger.warn("No telegramBotTokenRef configured, plugin disabled");
+    let token: string;
+    if (config.telegramBotTokenRef) {
+      token = await ctx.secrets.resolve(config.telegramBotTokenRef);
+    } else if (process.env.TELEGRAM_BOT_TOKEN) {
+      token = process.env.TELEGRAM_BOT_TOKEN;
+      ctx.logger.info("Using TELEGRAM_BOT_TOKEN from environment");
+    } else {
+      ctx.logger.warn("No telegramBotTokenRef or TELEGRAM_BOT_TOKEN configured, plugin disabled");
       return;
     }
-
-    const token = await ctx.secrets.resolve(config.telegramBotTokenRef);
 
     // --- Register bot commands with Telegram ---
     if (config.enableCommands) {

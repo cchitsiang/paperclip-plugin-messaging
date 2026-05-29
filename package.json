@@ -1,5 +1,5 @@
 {
-  "name": "paperclip-plugin-telegram",
+  "name": "@cchitsiang/paperclip-plugin-messaging",
   "version": "0.6.1",
   "type": "module",
   "main": "./dist/index.js",
@@ -35,7 +35,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mvanhorn/paperclip-plugin-telegram.git"
+    "url": "git+https://github.com/cchitsiang/paperclip-plugin-messaging.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

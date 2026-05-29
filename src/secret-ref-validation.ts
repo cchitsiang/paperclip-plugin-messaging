@@ -7,7 +7,7 @@ export type SecretRefConfig = {
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const FIELDS = [
-  { key: "telegramBotTokenRef", required: true },
+  { key: "telegramBotTokenRef", required: false },
   { key: "paperclipBoardApiTokenRef", required: false },
   { key: "transcriptionApiKeyRef", required: false },
 ] as const;
